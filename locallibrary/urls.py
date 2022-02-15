@@ -26,9 +26,9 @@ urlpatterns = [
 ]
 # add a path that forwards requests with pattern /catalog to the catalog.urls module (catalog/urls.py file)
 urlpatterns += [
-    path('catalog/', 'catalog.urls')),
+    path('catalog/', include('catalog.urls')),
 # add URL maps to redirect the base URL to the application
-    path('', RedirectView.as_view(url='catalog/', permanent=True)),
-# use static() to add url mapping to serve static files
-    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', RedirectView.as_view(url='catalog/', permanent=True))
 ]
+# use static() to add url mapping to serve static files during dev only
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
