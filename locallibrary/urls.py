@@ -1,4 +1,8 @@
 from django.urls import include
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
+
 """locallibrary URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -23,4 +27,8 @@ urlpatterns = [
 # add a path that forwards requests with pattern /catalog to the catalog.urls module (catalog/urls.py file)
 urlpatterns += [
     path('catalog/', 'catalog.urls')),
+# add URL maps to redirect the base URL to the application
+    path('', RedirectView.as_view(url='catalog/', permanent=True)),
+# use static() to add url mapping to serve static files
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ]
